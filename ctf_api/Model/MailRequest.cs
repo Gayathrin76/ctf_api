@@ -14,6 +14,7 @@ namespace ctf_api.Model
         public string PhoneNumber { get; set; }
         public string Subject { get; set; }
         public string Message { get; set; }
+        public string fromSite { get; set; }
         //public List<IFormFile> Attachments { get; set; }
     }
 }

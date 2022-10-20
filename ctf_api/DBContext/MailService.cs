@@ -30,18 +30,25 @@ namespace ctf_api.DBContext
             client.EnableSsl = true;
 
             MailMessage mail = new MailMessage();
-            mail.From = new MailAddress(_mailSettings.Email, "test");
+            mail.From = new MailAddress(_mailSettings.Email, "Support Team");
             mail.To.Add(new MailAddress(mailRequest.ToEmail));
-            mail.Subject = mailRequest.Subject;
+            mail.Subject = mailRequest.fromSite+ "- Contact";
             string mailBoby = "";
-            mailBoby = mailBoby + "Hi, <br/>";
-            mailBoby = mailBoby + "Please find the details below: "+ "<br/> <br/>";
-            mailBoby = mailBoby + "Name: " + mailRequest.Name + "<br/>";
-            mailBoby = mailBoby + "Phone: " + mailRequest.PhoneNumber + "<br/>";
-            mailBoby = mailBoby + "Email: " + mailRequest.Email + "<br/>";
-            mailBoby = mailBoby + "Description: " + mailRequest.Message + "<br/><br/>";
-            mailBoby = mailBoby + "Thanks and Regards,<br/>";
-            mailBoby = mailBoby + "Support Team";
+            mailBoby = mailBoby + "<b>Hi Admin,</b><br/><br/>";
+            mailBoby = mailBoby + "A new contact request has been submitted with the following information." + "<br/> <br/>";
+            
+            mailBoby = mailBoby + "<b>Name:</b><br/>";
+            mailBoby = mailBoby + mailRequest.Name + " (" + mailRequest.Email + ")<br/>";
+            mailBoby = mailRequest.PhoneNumber!=""? mailBoby + "+91 " + mailRequest.PhoneNumber + "<br/><br/>": mailBoby + "<br/>";
+         
+            mailBoby = mailBoby + "<b>Subject:</b><br/>";
+            mailBoby = mailBoby +  mailRequest.Subject + "<br/><br/>";
+
+            mailBoby = mailBoby + "<b>Message:</b><br/>";
+            mailBoby = mailBoby +  mailRequest.Message + "<br/><br/>";
+
+            mailBoby = mailBoby + "Regards,<br/>";
+            mailBoby = mailBoby + "Support - " + mailRequest.fromSite;
             mail.Body = mailBoby;
             mail.IsBodyHtml = true;
             try
